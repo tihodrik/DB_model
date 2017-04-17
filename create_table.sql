@@ -44,7 +44,6 @@ CREATE TABLE shop (
 )CHARACTER SET = UTF8;
 
 CREATE TABLE book (
-	book_id INT UNSIGNED AUTO_INCREMENT,
     ISBN VARCHAR(13) NOT NULL,
     title VARCHAR(50) NOT NULL,
     genre_id INT UNSIGNED NOT NULL,
@@ -53,15 +52,17 @@ CREATE TABLE book (
     publication_language VARCHAR(20) NOT NULL,
     pages INT UNSIGNED NOT NULL,
     weight INT UNSIGNED NOT NULL,
+    copies INT UNSIGNED NOT NULL,
     FOREIGN KEY (publisher_id) REFERENCES publisher(publisher_id),
     FOREIGN KEY (genre_id) REFERENCES genre(genre_id),
-    PRIMARY KEY (book_id)
+    PRIMARY KEY (ISBN)
 )CHARACTER SET = UTF8;
 
 CREATE TABLE book_shop (
-    ISBN VARCHAR(13) NOT NULL,
-    shop_id INT UNSIGNED NOT NULL,
+	shop_id INT UNSIGNED NOT NULL,
+    ISBN VARCHAR(13) NOT NULL,    
     copies INT UNSIGNED,
+    cost FLOAT UNSIGNED NOT NULL,
     FOREIGN KEY (ISBN) REFERENCES book(ISBN),
     FOREIGN KEY (shop_id) REFERENCES shop(shop_id),
     PRIMARY KEY (ISBN, shop_id)
@@ -73,13 +74,4 @@ CREATE TABLE book_author (
     FOREIGN KEY (ISBN) REFERENCES book(ISBN),
     FOREIGN KEY (author_id) REFERENCES author(author_id),
     PRIMARY KEY (ISBN, author_id)    
-)CHARACTER SET = UTF8;
-
-CREATE TABLE book_publisher (
-    ISBN VARCHAR(13) NOT NULL,
-    publisher_id INT UNSIGNED NOT NULL,
-    copies INT UNSIGNED NOT NULL,
-    FOREIGN KEY (ISBN) REFERENCES book(ISBN),
-    FOREIGN KEY (publisher_id) REFERENCES publisher(publisher_id),
-    PRIMARY KEY (ISBN, publisher_id)   
 )CHARACTER SET = UTF8;
