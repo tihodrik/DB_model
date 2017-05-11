@@ -1,3 +1,6 @@
+create database if not exists model;
+use model;
+
 drop table if exists book_author;
 drop table if exists book_shop;
 drop table if exists book_publisher;
@@ -11,7 +14,7 @@ drop table if exists shop;
 CREATE TABLE author (
     author_id INT UNSIGNED AUTO_INCREMENT,
     author_name VARCHAR(50) NOT NULL,
-    dob DATE NOT NULL,
+    dob DATE,
     PRIMARY KEY (author_id)
 )CHARACTER SET = UTF8;
 
@@ -44,7 +47,7 @@ CREATE TABLE shop (
 )CHARACTER SET = UTF8;
 
 CREATE TABLE book (
-    ISBN VARCHAR(13) NOT NULL,
+    ISBN VARCHAR(17) NOT NULL,
     title VARCHAR(50) NOT NULL,
     genre_id INT UNSIGNED NOT NULL,
     publisher_id INT UNSIGNED NOT NULL,
@@ -60,7 +63,7 @@ CREATE TABLE book (
 
 CREATE TABLE book_shop (
 	shop_id INT UNSIGNED NOT NULL,
-    ISBN VARCHAR(13) NOT NULL,    
+    ISBN VARCHAR(17) NOT NULL,    
     copies INT UNSIGNED,
     cost FLOAT UNSIGNED NOT NULL,
     FOREIGN KEY (ISBN) REFERENCES book(ISBN),
@@ -69,7 +72,7 @@ CREATE TABLE book_shop (
 )CHARACTER SET = UTF8;
 
 CREATE TABLE book_author (
-    ISBN VARCHAR(13) NOT NULL,
+    ISBN VARCHAR(17) NOT NULL,
     author_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (ISBN) REFERENCES book(ISBN),
     FOREIGN KEY (author_id) REFERENCES author(author_id),
